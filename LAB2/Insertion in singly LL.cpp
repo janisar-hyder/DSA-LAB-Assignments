@@ -21,8 +21,9 @@ class Node{
 		 	Node *p;
 		 	p=new Node();
 		 	p->data=n;
-		 	p->next=NULL;
-		 	head->next=p;
+		 	//p->next=NULL;
+		 	p->next=head;
+		 	head=p;
 		 }
 		disp();
 	 }
@@ -51,7 +52,7 @@ class Node{
 	 	
 	 }
 //inserion at after Specific Location*************************************************
-	void insert_at_afterval(int x,int n){
+	void insert_at_afterval(int loc,int n){
 
 		if(head==NULL)
 		{
@@ -67,7 +68,7 @@ class Node{
 		{
 		  Node *temp;
 		  temp=head;
-		  while(temp->data!=x)
+		  while(temp->data!=loc)
 		  { 
 		  temp=temp->next;
 		
@@ -78,12 +79,12 @@ class Node{
 		  p->next= temp->next;
 		  temp->next=p;
 		  }
-		  cout << "\nInserted Successfully After location: "<<x;
+		  cout << "\nInserted Successfully After location: "<<loc;
 		  disp();
 		    	
 		}
 //inserion before the Specific Location*************************************************		
-		void insert_at_beforval(int x,int n){
+		void insert_at_beforval(int loc,int n){
 		
 		if(head==NULL)
 		{
@@ -98,40 +99,33 @@ class Node{
 		
 		{
 		  Node *temp, *temp2;
+		  
 		  temp=head;
 		  temp2=head;
-		  while(temp->data!=x)
+		  while(temp->data!=loc)
 		  { 
-		  temp=temp->next;
+		  temp2 = temp;
+		  temp = temp->next;
 		  }
-		  while(temp2->next!=temp){
-		  	temp2=temp2->next;
-		  }
+		  
 		  Node *p;
 		  p=new Node();
 		  p->data=n;
-		  temp2->next=p;
+		  if(temp==head){
+		  	p->next=head;
+		  	head=p;
+		  }
+		  else{
+		  	temp2->next=p;
 		  p->next=temp;
+		  }
+		  
 		  }
 		  cout << "\nInserted Successfully before location";
 		  disp();
 		    	
 		}
-//for 3rd		
-		void insert(int n){
-	 	if(head==NULL){
-	 		head=new Node();
-	 		head->data=n;
-	 		head->next=NULL;
-		 }
-		 else {
-		 	Node *p;
-		 	p=new Node();
-		 	p->data=n;
-		 	p->next=NULL;
-		 	head->next=p;
-		 }
-	}
+
 
 	
 
@@ -154,6 +148,8 @@ class Node{
 		cout <<endl;
 	}
     }
+    
+    
 };
 int main(){
 	Node obj;
@@ -179,7 +175,7 @@ do{
 			break;
 		case 3:
 			int o, loc;
-			cout<<"Enter Location: ";
+			cout<<"Enter location value: ";
 			cin>>loc;
 			cout << "Enter the value to insert: ";
 			cin >> v;
@@ -189,11 +185,11 @@ do{
 			cin>>o;
 				switch (o){
 					case 1:
-						obj.insert(30);
+						
 						obj.insert_at_afterval(loc,v);
 						break;
 					case 2:
-						obj.insert(30);
+						
 						obj.insert_at_beforval(loc,v);
 						break;
 					default:
